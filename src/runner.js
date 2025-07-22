@@ -159,6 +159,10 @@ Runner.prototype = {
 
         this.containerEl = document.createElement('div');
         this.containerEl.className = Runner.classes.CONTAINER;
+        
+        // Set container to full width from the start
+        this.containerEl.style.width = this.dimensions.WIDTH + 'px';
+        this.containerEl.style.height = this.dimensions.HEIGHT + 'px';
 
         // Player canvas container.
         this.canvas = createCanvas(this.containerEl, this.dimensions.WIDTH,
@@ -244,30 +248,15 @@ Runner.prototype = {
 
     /**
      * Play the game intro.
-     * Canvas container width expands out to the full width.
+     * Canvas container is already at full width.
      */
     playIntro: function () {
         if (!this.activated && !this.crashed) {
             this.playingIntro = true;
             this.tRex.playingIntro = true;
 
-            // CSS animation definition.
-            var keyframes = '@-webkit-keyframes intro { ' +
-                'from { width:' + Trex.config.WIDTH + 'px }' +
-                'to { width: ' + this.dimensions.WIDTH + 'px }' +
-                '}';
-            
-            // create a style sheet to put the keyframe rule in 
-            // and then place the style sheet in the html head    
-            var sheet = document.createElement('style');
-            sheet.innerHTML = keyframes;
-            document.head.appendChild(sheet);
-
-            this.containerEl.addEventListener(Runner.events.ANIM_END,
-                this.startGame.bind(this));
-
-            this.containerEl.style.webkitAnimation = 'intro .4s ease-out 1 both';
-            this.containerEl.style.width = this.dimensions.WIDTH + 'px';
+            // Start the game immediately
+            this.startGame();
 
             this.playing = true;
             this.activated = true;
@@ -345,14 +334,10 @@ Runner.prototype = {
                 this.playIntro();
             }
 
-            // The horizon doesn't move until the intro is over.
-            if (this.playingIntro) {
-                this.horizon.update(0, this.currentSpeed, hasObstacles);
-            } else {
-                deltaTime = !this.activated ? 0 : deltaTime;
-                this.horizon.update(deltaTime, this.currentSpeed, hasObstacles,
-                    this.inverted);
-            }
+            // Update horizon normally since intro is immediate
+            deltaTime = !this.activated ? 0 : deltaTime;
+            this.horizon.update(deltaTime, this.currentSpeed, hasObstacles,
+                this.inverted);
 
             // Check for auto jump
             if (hasObstacles) {
