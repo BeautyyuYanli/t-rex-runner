@@ -150,10 +150,6 @@ Runner.prototype = {
      * Game initialiser.
      */
     init: function () {
-        // Hide the static icon.
-        document.querySelector('.' + Runner.classes.ICON).style.visibility =
-            'hidden';
-
         this.adjustDimensions();
         this.setSpeed();
 
