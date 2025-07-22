@@ -4,10 +4,22 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
-    <title >chrome easter egg: t-rex runner</title>
+    <title>chrome easter egg: t-rex runner (modular)</title>
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
-    <script src="index.js"></script>
+    
+    <!-- Load all game components in the correct order -->
+    <script src="src/utils.js"></script>
+    <script src="src/config.js"></script>
+    <script src="src/collision-box.js"></script>
+    <script src="src/cloud.js"></script>
+    <script src="src/night-mode.js"></script>
+    <script src="src/horizon-line.js"></script>
+    <script src="src/obstacle.js"></script>
+    <script src="src/trex.js"></script>
+    <script src="src/horizon.js"></script>
+    <script src="src/runner.js"></script>
+    <script src="src/main.js"></script>
 </head>
 
 <body id="t" class="offline">
@@ -22,4 +34,4 @@
     </div>
 </body>
     
-</html>
+</html> 
